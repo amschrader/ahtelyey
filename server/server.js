@@ -6,7 +6,7 @@ var http = require('http'),
     request = require("request"),
     DOM = React.DOM, body = DOM.body, div = DOM.div, script = DOM.script,
 
-    App = React.createFactory(require('../client/App')),
+    App = React.createFactory(require('../build/App')),
     fs = require("fs")
 
 
@@ -58,7 +58,7 @@ http.createServer(function(req, res) {
       res.setHeader('Content-Type', 'text/javascript')
 
       browserify()
-        .add('../client/browser.js')
+        .add('build/browser.js')
         .transform(literalify.configure({
           'react': 'window.React',
           'react-dom': 'window.ReactDOM',
@@ -73,7 +73,6 @@ http.createServer(function(req, res) {
         responseDict = JSON.parse(responseBody)
 
         if (responseDict.products === undefined) {
-          console.log("ending")
           res.end(html)
           return
         }
